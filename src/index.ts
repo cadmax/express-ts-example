@@ -1,14 +1,10 @@
 import express from 'express'
 import cors from 'cors'
 import itensRouter from './routers/itens-router'
-import * as dotenv from 'dotenv'
-
-dotenv.config({
-	path: '.env'
-})
+import Env from "./commons/Env";
 
 // Porta do servidor
-const PORT = process.env.PORT
+const PORT = Env.PORT
 
 // App Express
 const app = express()
