@@ -5,7 +5,6 @@ import CsvRepository from '../repositories/csv/csv.repository'
 const itensRouter = express.Router()
 
 itensRouter.post('/csv-to-mongo', async (req, res) => {
-	console.log('ok')
 	const data: ICsvData = req.body
 
 	try {
