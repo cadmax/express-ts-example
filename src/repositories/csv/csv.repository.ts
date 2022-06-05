@@ -27,7 +27,18 @@ export default class CsvRepository {
 		let totalItems = 0
 
 		for (const items of chunks) {
-			const insert = await connection.useDb(data.database_name).collection(data.collection).insertMany(items);
+			const payload = items.map((i: any) => {
+				Object.keys(i).forEach(k => {
+					if (i[k]) {
+						const value = this.isNumeric(i[k]) ? parseInt(i[k], 10) : i[k]
+						i[k] = value
+					}
+				})
+
+				return i
+			})
+
+			const insert = await connection.useDb(data.database_name).collection(data.collection).insertMany(payload);
 
 			totalItems += insert.insertedCount
 
@@ -41,4 +52,8 @@ export default class CsvRepository {
 			totalItems
 		}
 	}
+
+	isNumeric(num: any){
+		return !isNaN(num)
+	  }
 }
